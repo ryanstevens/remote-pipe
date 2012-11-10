@@ -1,0 +1,11 @@
+{
+  "name": "file-streamer",
+  "version": "0.0.0-1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "buffer-stream": "*"
+  }
+}
