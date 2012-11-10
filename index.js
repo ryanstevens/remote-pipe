@@ -1,14 +1,28 @@
-var BufferStream = require('buffer-stream');
+var inStream = process.stdin,
+	request = require('request'),
+	url = process.argv.pop(),
+	bytes = 0;
 
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-var buffer = BufferStream().buffer();
+inStream.setEncoding('utf8');
+inStream.on('data', function (chunk) {
 
+	//queue until request is complete to 
+	//ensure syncronous delivery
+	inStream.pause();
+ 	request({ 
+ 		method : 'POST', 
+ 		body: chunk,
+ 		url : url
+ 	}, function(e, r, body) {
+ 		bytes += chunk.length;
+		inStream.resume();
+ 	});
 
-process.stdin.on('data', function (chunk) {
- 	buffer.write(chunk);
 });
 
-setTimeout(function() {
-	buffer.empty(process.stdout);
-}, 2000);
+(function status() {
+	console.log(bytes + " bytes sent");
+	setTimeout(status, 1000);
+})();
+
+inStream.resume();

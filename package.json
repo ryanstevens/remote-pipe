@@ -1,11 +1,11 @@
 {
-  "name": "file-streamer",
+  "name": "remote-pipe",
   "version": "0.0.0-1",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "buffer-stream": "*"
+    "request": "*"
   }
 }
